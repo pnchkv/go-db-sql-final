@@ -55,8 +55,7 @@ func TestAddGetDelete(t *testing.T) {
 	require.NoError(t, err)
 
 	_, err = store.Get(id)
-	require.Equal(t, sql.ErrNoRows, err)
-
+	require.ErrorIs(t, err, sql.ErrNoRows)
 }
 
 // TestSetAddress проверяет обновление адреса
@@ -101,7 +100,7 @@ func TestSetStatus(t *testing.T) {
 
 	st, err := store.Get(id)
 	require.NoError(t, err)
-	require.Equal(t, st.Status, ParcelStatusSent)
+	require.Equal(t, ParcelStatusSent, st.Status)
 }
 
 // TestGetByClient проверяет получение посылок по идентификатору клиента
